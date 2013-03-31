@@ -4,18 +4,17 @@ app.config ['$httpProvider', ($httpProvider) ->
   delete $httpProvider.defaults.headers.common["X-Requested-With"]
 ]
 
-chatApiUrl = (path) -> 'http://luminisjschallenge-server.azurewebsites.net' + path
-# chatApiUrl = (path) -> 'luminisjschallenge.herokuapp.com' + path
+chatApiUrl = (path) -> 'http://planetmarrs.xs4all.nl:8787/server' + path
+# chatApiUrl = (path) -> 'http://luminisjschallenge.herokuapp.com' + path
+# chatApiUrl = (path) -> 'http://luminisjschallenge-server.azurewebsites.net' + path
 
 app.controller 'ChatCtrl', ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   $scope.login = (userName) -> 
     $http.get(chatApiUrl("/")).success (data) ->
       $scope.users = data
       userNames = $scope.users.map (user) -> user.name 
-      exists = userNames.some (name) -> name is userName
-      unless userName in userNames
-        $http.post(chatApiUrl("/"),{name: userName})
-      $scope.poll()  
+      $http.post(chatApiUrl("/"),{name: userName}) unless userName in userNames
+    $scope.poll()  
 
   $scope.selectUser = (userName) ->
     $scope.selectedUser = userName
@@ -34,8 +33,8 @@ app.controller 'ChatCtrl', ['$scope', '$http', '$timeout', ($scope, $http, $time
       $scope.users = data
     
   $scope.poll = ->
+    $scope.updateUsers()
     if $scope.selectedUser?
-      $scope.updateUsers()
       $scope.updateMessages()
-    $timeout $scope.poll, 1500
+    $timeout $scope.poll, 1000
 ]
