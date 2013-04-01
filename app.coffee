@@ -1,7 +1,7 @@
 app = angular.module('app', [])
 
 app.config ['$httpProvider', ($httpProvider) ->
-  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+  # delete $httpProvider.defaults.headers.common["X-Requested-With"]
 ]
 
 chatApiUrl = (path) -> 'http://planetmarrs.xs4all.nl:8787/server' + path
