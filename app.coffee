@@ -5,7 +5,7 @@ chatApiUrl = (path) -> 'http://planetmarrs.xs4all.nl:8787/server' + path
 # chatApiUrl = (path) -> 'http://luminisjschallenge-server.azurewebsites.net' + path
 
 app.controller 'ChatCtrl', ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
-  
+
   $scope.$watch 'loggedIn', -> 
     if $scope.loggedIn
       $http.get(chatApiUrl("/")).success (data) ->

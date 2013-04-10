@@ -9,16 +9,26 @@
     <title>Luminis JS Challenge Client</title>
   </head>
   <body ng-controller="ChatCtrl">
+
+    <!--Login-->
+
     <form>
       <span ng-hide="loggedIn">Login</span>
       <input type="text" ng-model="nick" ng-readonly="loggedIn">
-      <input type="checkbox" ng-model="loggedIn" ng-change="login(nick)">
+      <input type="checkbox" ng-model="loggedIn">
     </form>
+
     <div class="container-fluid">
       <div class="row-fluid">
+        
+        <!-- Users -->      
+        
         <div ng-show="loggedIn" class="span4">
           <button ng-repeat="user in users" ng-click="selectUser(user.name)">{{user.name}}</button>
         </div>
+        
+        <!-- Messaging -->
+                  
         <div class="span8" ng-show="selectedUser">
           <table>
             <tbody>
